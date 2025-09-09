@@ -5,19 +5,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.Instant;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Bay {
+public class ParkingSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String code;
+    private String userQr;   // QR code ID
+    private Instant checkInTime;
+    private Instant checkOutTime;
 
-    @OneToMany(mappedBy = "bay", cascade = CascadeType.ALL)
-    private List<Slot> slots;
+    @ManyToOne
+    @JoinColumn(name = "slot_id")
+    private Slot slot;
 }

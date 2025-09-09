@@ -5,19 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Bay {
+public class Slot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String code;
+    private int number; // slot number inside bay
 
-    @OneToMany(mappedBy = "bay", cascade = CascadeType.ALL)
-    private List<Slot> slots;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @ManyToOne
+    @JoinColumn(name = "bay_id")
+    private Bay bay;
+
+    public enum Status {
+        FREE, OCCUPIED
+    }
 }
