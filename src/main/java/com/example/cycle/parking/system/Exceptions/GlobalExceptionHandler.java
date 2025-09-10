@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+
     @ExceptionHandler(BayAndSlotAlreadyException.class)
     public ResponseEntity<ErrorResponse> handleBayAndSlotAlreadyException(BayAndSlotAlreadyException ex) {
         ErrorResponse error = new ErrorResponse(
