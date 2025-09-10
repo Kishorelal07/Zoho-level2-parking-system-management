@@ -6,7 +6,7 @@ import com.example.cycle.parking.system.Exceptions.BayAndSlotAlreadyException;
 import com.example.cycle.parking.system.Exceptions.VehicleNumberNotFoundException;
 import com.example.cycle.parking.system.Mapper.CheckInMapper;
 import com.example.cycle.parking.system.task1.cycleParkingEntity.ParkingSession;
-import com.example.cycle.parking.system.task1.cycleParkingRepository.ParkingSessionRepository;
+import com.example.cycle.parking.system.task1.cycleParkingRepository.ParkingRepository;
 import com.example.cycle.parking.system.task1.cycleParkingService.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +16,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("task1ParkingService")
 public class ParkingServiceImpl implements ParkingService{
         @Autowired
-        private ParkingSessionRepository sessionRepo;
+        private ParkingRepository sessionRepo;
 
         ParkingSession parkingSession;
         @Override

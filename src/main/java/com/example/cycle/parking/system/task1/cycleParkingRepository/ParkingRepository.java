@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ParkingSessionRepository extends JpaRepository<ParkingSession, Long> {
+public interface ParkingRepository extends JpaRepository<ParkingSession, Long> {
 
     Optional<ParkingSession> findByBayAndSlot(String bay, String slot);
 
 
     @Query("SELECT new com.example.cycle.parking.system.Dto.BaySlotDto(p.bay, p.slot) " +
-            "FROM ParkingSession p WHERE p.status = 'FREE'")
+            "FROM Task1ParkingSession p WHERE p.status = 'FREE'")
     List<BaySlotDto> findFreeSlots();
 
     Optional<ParkingSession> findByVehicleNumber(String vehicleNumber);

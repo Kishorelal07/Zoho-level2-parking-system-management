@@ -22,6 +22,17 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(BayAndSlotAlreadyFloorException.class)
+    public ResponseEntity<ErrorResponse> handleBayAndSlotAlreadyFloorException(BayAndSlotAlreadyFloorException ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                LocalDateTime.now(),
+                ex.getFreedAt(),
+                ex.getAvailableSlots()
+        );
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(VehicleNumberNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleVehicleNumberNotFoundException(VehicleNumberNotFoundException ex) {
@@ -46,6 +57,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(SlotAlreadyOccupiedException.class)
+    public ResponseEntity<ErrorResponse> handleSlotAlreadyOccupiedException(SlotAlreadyOccupiedException ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                LocalDateTime.now(),
+                null,
+                null
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
     static class ErrorResponse {
         private int status;
         private String message;
