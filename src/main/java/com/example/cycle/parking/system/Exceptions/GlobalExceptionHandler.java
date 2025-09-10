@@ -34,6 +34,17 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(TheftReportNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTheftReportNotFoundException(TheftReportNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                LocalDateTime.now(),
+                null,
+                null
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
 
     static class ErrorResponse {
         private int status;
