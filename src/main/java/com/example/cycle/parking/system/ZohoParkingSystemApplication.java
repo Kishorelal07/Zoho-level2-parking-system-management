@@ -4,14 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CycleParkingSystemApplication {
+public class ZohoParkingSystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CycleParkingSystemApplication.class, args);
-	}
-
-	@Override
-	public String toString() {
-		return super.toString();
+		SpringApplication.run(ZohoParkingSystemApplication.class, args);
 	}
 }

@@ -1,0 +1,6 @@
+INSERT INTO PARKING_SESSION (bay, slot,status) VALUES ('A1','1','FREE');
+INSERT INTO PARKING_SESSION (bay, slot,status) VALUES ('A1','2','FREE');
+INSERT INTO PARKING_SESSION (bay, slot,status) VALUES ('B1','1','FREE');
+INSERT INTO PARKING_SESSION (bay, slot,status) VALUES ('B1','2','FREE');
+INSERT INTO PARKING_SESSION (bay, slot,status) VALUES ('C1','1','FREE');
+INSERT INTO PARKING_SESSION (bay, slot,status) VALUES ('C2','2','FREE');
