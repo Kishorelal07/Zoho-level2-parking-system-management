@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ResponseDto {
 
-    private String statusCode;
+    private String occupiedStatus;
 
     private String statusMsg;
 

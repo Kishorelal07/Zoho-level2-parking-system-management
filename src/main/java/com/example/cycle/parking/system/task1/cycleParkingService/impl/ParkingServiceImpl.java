@@ -21,7 +21,7 @@ public class ParkingServiceImpl implements ParkingService{
         @Autowired
         private ParkingRepository sessionRepo;
 
-        ParkingSession parkingSession;
+        public ParkingSession parkingSession;
         @Override
         public void checkIn(CheckInDto checkInDto) {
 
