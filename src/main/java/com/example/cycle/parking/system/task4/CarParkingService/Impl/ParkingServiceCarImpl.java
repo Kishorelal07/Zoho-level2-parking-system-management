@@ -1,6 +1,12 @@
 package com.example.cycle.parking.system.task4.CarParkingService.Impl;
 
+import com.example.cycle.parking.system.Dto.BaySlotDtoCar;
+import com.example.cycle.parking.system.Dto.BaySlotDtoFloorExpand;
+import com.example.cycle.parking.system.Dto.FreeSlotDtoCar;
 import com.example.cycle.parking.system.Dto.ParkingSessionCarDto;
+import com.example.cycle.parking.system.Exceptions.BayAndSlotAlreadyFloorException;
+import com.example.cycle.parking.system.Exceptions.BayAndSlotAlreadyForCar;
+import com.example.cycle.parking.system.Exceptions.SlotAlreadyOccupiedException;
 import com.example.cycle.parking.system.Mapper.ParkingMapperCar;
 import com.example.cycle.parking.system.task4.CarParkingEntity.BayCar;
 import com.example.cycle.parking.system.task4.CarParkingEntity.ParkingSessionCar;
@@ -13,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service("carParkingService")
@@ -31,7 +38,14 @@ public class ParkingServiceCarImpl implements ParkingServiceCar {
     public ParkingSessionCarDto checkIn(Long slotId, String vehicleNumber, String userQr) {
         SlotCar slot = slotRepository.findById(slotId).orElseThrow();
         if (!"FREE".equals(slot.getStatus())) {
-            throw new RuntimeException("Slot is already occupied");
+            List<BaySlotDtoCar> freeSlots = sessionRepository.findFreeSlots();
+            throw new BayAndSlotAlreadyForCar(
+                    "This Bay and Slot has been registered already! ",
+                    "Will be freed at " + LocalDateTime.now()
+                            .plusHours(4)
+                            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                    freeSlots
+            );
         }
 
         ParkingSessionCar session = new ParkingSessionCar();
@@ -50,7 +64,7 @@ public class ParkingServiceCarImpl implements ParkingServiceCar {
     @Override
     public ParkingSessionCarDto checkOut(Long sessionId) {
         ParkingSessionCar session = sessionRepository.findById(sessionId).orElseThrow(
-                () -> new RuntimeException("Session not found")
+                () -> new SlotAlreadyOccupiedException("Slot may already checked out")
         );
 
         session.setCheckOutTime(LocalDateTime.now());
@@ -71,5 +85,8 @@ public class ParkingServiceCarImpl implements ParkingServiceCar {
     @Override
     public List<SlotCar> getFreeSlots() {
         return slotRepository.findByStatus("FREE");
+    }
+    public List<FreeSlotDtoCar> getFreeSlotDetails() {
+        return slotRepository.findFreeSlotDetails();
     }
 }

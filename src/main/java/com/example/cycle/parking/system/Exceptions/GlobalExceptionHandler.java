@@ -33,6 +33,17 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(BayAndSlotAlreadyForCar.class)
+    public ResponseEntity<ErrorResponse> handleBayAndSlotAlreadyForCarException(BayAndSlotAlreadyForCar ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                LocalDateTime.now(),
+                ex.getFreedAt(),
+                ex.getAvailableSlots()
+        );
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(VehicleNumberNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleVehicleNumberNotFoundException(VehicleNumberNotFoundException ex) {
